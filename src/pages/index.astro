@@ -1,10 +1,74 @@
 ---
-import "../styles/global.css";
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
+import Layout from "../layouts/Layout.astro";
+import WindowCard from "../components/WindowCard.astro";
+import Command from "../components/Command.astro";
+import ProfileOverview from "../content/profile-overview.md";
+import TerminalCard from "../components/TerminalCard.astro";
+import SkillChip from "../components/SkillChip.astro";
+import { getTempoElapsedTime, getYearsAndDaysElapsed } from "../utils/time";
+import PowerChip from "../components/PowerChip.astro";
+import Heading from "../components/Heading.astro"
 ---
 
 <Layout>
-	<Welcome />
+  <div class="flex flex-col gap-5 w-full px-10 py-5">
+
+    <Heading as="h1" class="text-primary-200" >~ Welcome Visitor 🙌 </Heading>
+    <WindowCard>
+      <div slot="content" class="flex flex-col gap-8">
+        <Command command="whoami" />
+        <h1 class="font-semibold">
+          Wilian Martinez <span class="text-primary">Senior Backend Engineer</span>
+        </h1>
+        <div class="">
+          <ProfileOverview />
+        </div>
+
+        <Command command="uptime --working-time" />
+        <p>{getTempoElapsedTime("02-01-2020")}</p>
+
+        <Command command="skills --resume" />
+        <div>
+          <PowerChip size="sm" variant="primary" text="Languages" />
+              <SkillChip name="Javascript/Typescript" date="02-01-2020" />
+              <SkillChip name="Rust" details="Entusiast" date= "01-01-205" />
+                      <SkillChip name="Go" details="Entusiast" date= "06-01-2025" />
+          <br/>
+
+          <PowerChip size="sm" variant="secondary" text="Toolkit" />
+          <SkillChip name="NodeJS" date="07-05-2021" />
+          <SkillChip name="Bun" date="07-05-2021" />
+          <SkillChip name="Deno" date="07-05-2021" />
+
+          <br/>
+          <PowerChip size="sm" variant="tertiary" text="Frameworks/Libraries" />
+          <SkillChip name="ExpresJS" date="07-05-2021" />
+          <SkillChip name="Fastify" date="07-05-2021" />
+          <SkillChip name="NestJS" date="07-05-2021" />
+
+          <br/>
+
+          <PowerChip size="sm" variant="green" text="Databases/ Cache" />
+          <SkillChip name="Elasticsearch" date="07-05-2021" />
+          <SkillChip name="MongoDB" date="07-05-2021" />
+          <SkillChip name="Redis" date="07-05-2021" />
+          <SkillChip name="PostgresQL" date="07-05-2024" />
+
+          <br/>
+          <PowerChip size="sm" variant="yellow" text="Backend" />
+
+          <SkillChip name="REST" date="07-05-2021" />
+          <SkillChip name="gRPC" date="07-05-2021" />
+          <SkillChip name="Microservices" date="07-05-2021" />
+          <SkillChip name="Serverless" date="07-05-2021" />
+
+        </div>
+        <Command
+          command={(<span class="text-gray-200 animate-blink">_</span>)}
+        />
+      </div>
+    </WindowCard>
+    <Heading as="h1" class="text-primary" >~/Experience</Heading>
+    <TerminalCard />
+  </div>
 </Layout>

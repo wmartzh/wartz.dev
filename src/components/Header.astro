@@ -1,0 +1,82 @@
+---
+const currentPath = Astro.url.pathname;
+
+function isActive(path: string): boolean {
+  return path === currentPath;
+}
+
+const menuOpts: Array<{ path: string; title: string }> = [
+  { path: "/", title: "cd home" },
+  { path: "/projects", title: "ls projects" },
+  { path: "/skills", title: "cat skills" },
+  { path: "/contact", title: "./contact" },
+];
+
+const socialLinks = [
+  {
+    name: "GitHub",
+    url: "https://github.com/wmartzh",
+    // Simple GitHub SVG icon
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a5.5 5.5 0 0 0-1.5-3.8 5.5 5.5 0 0 0-.2-3.8s-1.2-.4-3.9 1.4a13.3 13.3 0 0 0-7 0c-2.7-1.8-3.9-1.4-3.9-1.4a5.5 5.5 0 0 0-.2 3.8 5.5 5.5 0 0 0-1.5 3.8c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4"></path><path d="M9 18c-4.5 1.6-5-2.5-5-3"></path></svg>`,
+  },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/wmartzh",
+    // Simple LinkedIn SVG icon
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>`,
+  },
+];
+---
+
+<header class="relative w-full px-4 py-3 border-b border-gray-600">
+  <div
+    class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-x-4 gap-y-4"
+  >
+    <!-- Logo (Strictly Left) -->
+    <div class="flex-shrink-0">
+      <a class="text-primary text-2xl font-semibold" href="/">~/wartz.dev</a>
+    </div>
+
+    <!-- Right Side Wrapper (Menu + Socials) -->
+    <div class="flex flex-wrap items-center gap-6 sm:gap-8">
+      <!-- Menu -->
+      <nav aria-label="Main Navigation">
+        <ul
+          class="flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 nav-link text-sm md:text-base"
+        >
+          {
+            menuOpts.map((item) => (
+              <li>
+                <a
+                  class={`hover:text-primary transition-colors ${isActive(item.path) ? "active" : ""}`}
+                  href={item.path}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Social Icons Divider (Optional, looks nice in terminal themes) -->
+      <div class="hidden sm:block w-px h-6 bg-gray-600"></div>
+
+      <!-- Socials -->
+      <div class="flex items-center gap-4">
+        {
+          socialLinks.map((social) => (
+            <a
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.name}
+              class="text-gray-400 hover:text-primary transition-colors"
+              set:html={social.icon}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</header>

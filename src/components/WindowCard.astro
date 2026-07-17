@@ -1,0 +1,40 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = "root@server:~" } = Astro.props;
+---
+
+<div
+  class="bg-neutral-800 mx-auto rounded-lg shadow-xl overflow-hidden text-text-body"
+>
+  <!-- Window Header -->
+  <div class="flex flex-row px-4 py-1 bg-neutral-600 border-b border-gray-900">
+    <!-- Mac OS style dots -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 40"
+      class="w-14 h-auto"
+    >
+      <circle cx="20" cy="20" r="10" fill="#F47F95"></circle>
+      <circle cx="50" cy="20" r="10" fill="#EAB166"></circle>
+      <circle cx="80" cy="20" r="10" fill="#B0D97D"></circle>
+    </svg>
+
+    <!-- Centered Title -->
+    {
+      title && (
+        <div class="w-full text-center pointer-events-none">
+          <span class="font-mono text-sm text-gray-300 font-semibold tracking-wide">
+            {title}
+          </span>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Window Content -->
+  <div class="p-6 text-gray-300 min-h-[150px]">
+    <slot name="content" />
+  </div>
+</div>

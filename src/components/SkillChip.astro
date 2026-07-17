@@ -1,0 +1,18 @@
+---
+import { getYearsAndDaysElapsed } from "../utils/time";
+
+interface Props {
+  name: string;
+  date?: string;
+  details?: string;
+}
+
+const {  name, date, details } = Astro.props;
+
+---
+
+<p>
+  <span class="font-semibold"> {name}</span> - 
+  {date && <b>{getYearsAndDaysElapsed(date)}</b>} 
+   {details && details}
+</p>

@@ -1,0 +1,48 @@
+---
+// src/components/PowerlineChip.astro
+
+export type ColorVariant = 'primary' | 'secondary' | 'tertiary' | 'red' | 'green' | 'neutral' | 'yellow';
+type SizeVariant = 'sm' | 'md' | 'lg' | 'xl';
+
+interface Props {
+  text: string;
+  variant?: ColorVariant;
+  size?: SizeVariant;
+}
+
+const {
+  text,
+  variant = "primary",
+  size = "md", // Default size
+} = Astro.props;
+
+// Map variants to background and text colors
+const colorMap: Record<ColorVariant, string> = {
+  primary: "bg-primary text-[#391b6d]", 
+  secondary: "bg-secondary text-white",
+  tertiary: "bg-tertiary text-white",
+  red: "bg-red text-white",
+  green: "bg-green text-white",
+  neutral: "bg-neutral-200 text-black",
+  yellow: "bg-yellow text-black",
+};
+
+// Map sizes to height, font size, and padding
+// Extra right padding (pr) ensures the text doesn't overlap the cut tip
+const sizeMap: Record<SizeVariant, string> = {
+  sm: "h-6 text-xs pl-3 pr-6",
+  md: "h-8 text-sm pl-4 pr-8",
+  lg: "h-10 text-base pl-5 pr-10",
+  xl: "h-12 text-xl pl-6 pr-12",
+};
+---
+
+<div 
+  class={`inline-flex items-center font-sans font-black uppercase tracking-wider ${colorMap[variant]} ${sizeMap[size]}`}
+  style={{
+    /* Creates the single pointed arrow shape. Using '1em' scales the cut perfectly with the text size */
+    clipPath: "polygon(0 0, calc(100% - 1em) 0, 100% 50%, calc(100% - 1em) 100%, 0 100%)"
+  }}
+>
+  {text}
+</div>

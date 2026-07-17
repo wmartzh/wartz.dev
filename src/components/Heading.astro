@@ -1,0 +1,32 @@
+---
+// src/components/Heading.astro
+
+interface Props {
+  /** The HTML tag to render. Defaults to 'h2'. */
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  /** Matches the design system variants from image_0f67c8.png */
+  variant?: 'headline-l' | 'headline-m' | 'headline-s';
+  /** Optional custom CSS classes to merge */
+  class?: string;
+}
+
+const { 
+  as: Tag = 'h2', 
+  variant = 'headline-m', 
+  class: className 
+} = Astro.props;
+
+// Map the variants to their respective Tailwind utility classes based on your theme
+const variantStyles = {
+  // Matches "Headline L" -> Hello World
+  'headline-l': 'text-4xl md:text-5xl font-bold text-text-default',
+  // Matches "Headline M" -> System.init()
+  'headline-m': 'text-3xl md:text-4xl font-bold text-text-default',
+  // Matches "Headline S" -> var config = {}
+  'headline-s': 'text-2xl md:text-3xl font-bold text-text-default',
+};
+---
+
+<Tag class:list={['font-mono', variantStyles[variant], className]}>
+  <slot />
+</Tag>

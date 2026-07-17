@@ -1,0 +1,16 @@
+---
+interface Props {
+  host?: string;
+  command: string;
+}
+
+const { host = "root@server ~ $ ", command } = Astro.props;
+---
+
+<p class="font-mono">
+  <span class="text-left text-tertiary font-semibold">{host}</span><span
+    class="text-secondary"
+  >
+    {command}</span
+  >
+</p>

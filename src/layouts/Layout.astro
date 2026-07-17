@@ -1,15 +1,59 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+const lineNumbers = Array.from({ length: 15 }, (_, i) => i + 1);
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Wilian Martinez</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Wilian Martinez</title>
+  </head>
+  <body
+    class="flex flex-col w-screen h-screen m-0 font-mono overflow-hidden min-h-screen bg-neutral-900 text-text-body antialiased"
+  >
+    <Header />
+    <!-- Top Bar -->
+    <!-- <div class="h-[30px] min-h-[30px] border-b border-[#2a2f3a] shrink-0"></div> -->
 
+    <!-- Editor Area -->
+    <div class=" sm:px-30 flex flex-grow overflow-hidden">
+      <!-- Line Numbers Gutter: Height matches the inner container -->
+      <div
+        class="hidden sm:block w-[40px] sm:w-[60px] pt-4 sm:pt-5 pr-2 sm:pr-[15px] text-right text-[#6e7681] border-r border-[#2a2f3a] text-xs sm:text-sm leading-[1.8] select-none shrink-0 overflow-hidden"
+      >
+        {lineNumbers.map((num) => <span class="block">{num}</span>)}
+      </div>
+
+      <!-- Main Content/Code Area -->
+      
+      <div
+        class="flex-grow  leading-[1.8] overflow-y-auto overflow-x-hidden whitespace-pre-wrap break-words"
+      >
+        <slot />
+      </div>
+    </div>
+
+    <!-- Footer Area -->
+    <div
+      class="flex items-center justify-end h-[40px] min-h-[40px] px-4 sm:px-5 border-t border-[#2a2f3a] text-[#6e7681] text-xs shrink-0 bg-[#0d1117]"
+    >
+      &copy; 2026 - Your App
+    </div>
+  </body>
+  <!-- <body class="min-h-screen bg-neutral-900 text-text-body antialiased"> -->
+  <!--   <Header/> -->
+  <!--   <slot  /> -->
+  <!-- </body> -->
+</html>
