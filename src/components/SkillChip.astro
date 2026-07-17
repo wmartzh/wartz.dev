@@ -12,7 +12,8 @@ const {  name, date, details } = Astro.props;
 ---
 
 <p>
-  <span class="font-semibold"> {name}</span> - 
+  <span class="text-tertiary font-bold">{"=>"}</span>
+  <span class="font-semibold"> {name}</span>  
   {date && <b>{getYearsAndDaysElapsed(date)}</b>} 
    {details && details}
 </p>

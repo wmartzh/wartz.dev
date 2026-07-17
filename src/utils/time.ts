@@ -37,9 +37,9 @@ export function getTempoElapsedTime(targetDate: Date | string): string {
   return `${currentTime} up ${uptimeParts.join(", ")}`;
 }
 
-export function getYearsAndDaysElapsed(startDate: Date | string): string {
+export function getYearsAndDaysElapsed(startDate: Date | string , endDate?: Date | string): string {
   const start = new Date(startDate);
-  const now = new Date();
+  const now = endDate ? new Date(endDate) :  new Date();
 
   // 1. Get exact full years
   const years = diffYears(now, start);
@@ -57,5 +57,5 @@ export function getYearsAndDaysElapsed(startDate: Date | string): string {
   // Always push days, even if 0 (e.g., "4 years, 0 days,")
   parts.push(`${days} ${days === 1 ? 'day' : 'days'}`);
 
-  return `${parts.join(', ')},`;
+  return `${parts.join(',')}`;
 }

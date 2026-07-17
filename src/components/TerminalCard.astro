@@ -4,34 +4,45 @@ interface Props {
   size?: string;
 }
 
-const { 
-  permissions = "drwxr-xr-x", 
-  size = "4.2K" 
-} = Astro.props;
+const { permissions = "drwxr-xr-x", size = "4.2K" } = Astro.props;
 ---
 
-<div class="bg-[#1a1b26] border border-[#333543] p-6 font-mono w-full max-w-md rounded-md">
-  
+<div class="bg-neutral-800 shadow-xl p-6 font-mono w-full rounded-md">
   <!-- Header -->
-  <div class="flex justify-between items-center pb-4 border-b border-[#333543] mb-5">
-    <div class="flex items-center gap-2 text-[#a9b1d6] font-semibold text-sm">
-      <!-- Icon Slot with Default SVG Fallback -->
-      <slot name="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-        </svg>
-      </slot>
-      <span>{permissions}</span>
-    </div>
-    
-    <div class="text-[#565f89] text-xs">
-      <span>{size}</span>
-    </div>
-  </div>
-  
-  <!-- Main Content -->
-  <div class="flex flex-col gap-4">
-    <slot />
+  <div
+    class="flex justify-between items-center pb-4 border-b border-[#333543] mb-5"
+  >
+    <slot name="header">
+      <div class="flex items-center gap-2 text-[#a9b1d6] font-semibold text-sm">
+        <!-- Icon Slot with Default SVG Fallback -->
+        <slot name="icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+            ></path>
+          </svg>
+        </slot>
+        <span>{permissions}</span>
+      </div>
+
+      <div class="text-[#565f89] text-xs">
+        <span>{size}</span>
+      </div>
+    </slot>
   </div>
 
+  <!-- Main Content -->
+  <div class="flex flex-col">
+    <slot />
+  </div>
 </div>

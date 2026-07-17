@@ -7,68 +7,75 @@ import TerminalCard from "../components/TerminalCard.astro";
 import SkillChip from "../components/SkillChip.astro";
 import { getTempoElapsedTime, getYearsAndDaysElapsed } from "../utils/time";
 import PowerChip from "../components/PowerChip.astro";
-import Heading from "../components/Heading.astro"
+import { UserStar } from "@lucide/astro";
+import Heading from "../components/Heading.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import ExperienceCard from "../components/ExperienceCard.astro";
+
+const experiences: CollectionEntry<"experience">[] =
+  await getCollection("experience");
 ---
 
 <Layout>
-  <div class="flex flex-col gap-5 w-full px-10 py-5">
+  <div class="flex flex-col gap-8 w-full px-10 py-5">
+    <Heading as="h1" class="text-primary-200">~ Welcome Visitor 🙌 </Heading>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+      <div class="col-span-1 lg:col-span-2 sm:col-span-1">
+        <WindowCard>
+          <div slot="content" class="flex flex-col gap-8">
+            <Command command="whoami" />
+            <p class="font-semibold">
+              Wilian Martinez <span class="text-primary"
+                >Senior Backend Engineer</span
+              >
+            </p>
+            <div class="">
+              <ProfileOverview />
+            </div>
 
-    <Heading as="h1" class="text-primary-200" >~ Welcome Visitor 🙌 </Heading>
-    <WindowCard>
-      <div slot="content" class="flex flex-col gap-8">
-        <Command command="whoami" />
-        <h1 class="font-semibold">
-          Wilian Martinez <span class="text-primary">Senior Backend Engineer</span>
-        </h1>
-        <div class="">
-          <ProfileOverview />
-        </div>
+            <Command command="uptime --working-time" />
+            <p>{getTempoElapsedTime("02-01-2020")}</p>
 
-        <Command command="uptime --working-time" />
-        <p>{getTempoElapsedTime("02-01-2020")}</p>
-
-        <Command command="skills --resume" />
-        <div>
-          <PowerChip size="sm" variant="primary" text="Languages" />
-              <SkillChip name="Javascript/Typescript" date="02-01-2020" />
-              <SkillChip name="Rust" details="Entusiast" date= "01-01-205" />
-                      <SkillChip name="Go" details="Entusiast" date= "06-01-2025" />
-          <br/>
-
-          <PowerChip size="sm" variant="secondary" text="Toolkit" />
-          <SkillChip name="NodeJS" date="07-05-2021" />
-          <SkillChip name="Bun" date="07-05-2021" />
-          <SkillChip name="Deno" date="07-05-2021" />
-
-          <br/>
-          <PowerChip size="sm" variant="tertiary" text="Frameworks/Libraries" />
-          <SkillChip name="ExpresJS" date="07-05-2021" />
-          <SkillChip name="Fastify" date="07-05-2021" />
-          <SkillChip name="NestJS" date="07-05-2021" />
-
-          <br/>
-
-          <PowerChip size="sm" variant="green" text="Databases/ Cache" />
-          <SkillChip name="Elasticsearch" date="07-05-2021" />
-          <SkillChip name="MongoDB" date="07-05-2021" />
-          <SkillChip name="Redis" date="07-05-2021" />
-          <SkillChip name="PostgresQL" date="07-05-2024" />
-
-          <br/>
-          <PowerChip size="sm" variant="yellow" text="Backend" />
-
-          <SkillChip name="REST" date="07-05-2021" />
-          <SkillChip name="gRPC" date="07-05-2021" />
-          <SkillChip name="Microservices" date="07-05-2021" />
-          <SkillChip name="Serverless" date="07-05-2021" />
-
-        </div>
-        <Command
-          command={(<span class="text-gray-200 animate-blink">_</span>)}
-        />
+            <Command
+              command={(<span class="text-gray-200 animate-blink">_</span>)}
+            />
+          </div>
+        </WindowCard>
       </div>
-    </WindowCard>
-    <Heading as="h1" class="text-primary" >~/Experience</Heading>
-    <TerminalCard />
+      <div class="col-span-1">
+        <TerminalCard>
+          <div slot="icon"><UserStar /></div>
+
+          <Command command="skills --resume" />
+
+          <p>Skills Overview (Main skills )</p>
+          <p>====</p>
+          <SkillChip name="Javascript/Typescript" />
+          <SkillChip name="NodeJS" />
+          <SkillChip name="Fastify" />
+          <SkillChip name="NestJS" />
+          <SkillChip name="Elasticsearch" />
+          <SkillChip name="MongoDB" />
+          <SkillChip name="Redis" />
+          <SkillChip name="REST" />
+          <SkillChip name="gRPC" />
+          <SkillChip name="Microservices" />
+          <SkillChip name="Serverless" />
+          <SkillChip name="CI/CD" />
+          <SkillChip name="Docker" />
+          <br />
+          <Command
+            command={(<span class="text-gray-200 animate-blink">_</span>)}
+          />
+        </TerminalCard>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <Heading as="h1" class="text-primary">~/Experience</Heading>
+      <div class="grid grid-cols gap-4">
+        {experiences.sort(v => v.data.pin ? -1:1 ).map((exp) => <ExperienceCard experience={exp} />)}
+      </div>
+    </div>
   </div>
 </Layout>

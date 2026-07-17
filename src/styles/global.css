@@ -2,30 +2,48 @@
 
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; 
 
-@import "./components/_navbar.css";
+@import './components/_navbar.css';
 
 @theme {
-  /* Fonts */
-  --font-sans: "JetBrains Mono", monospace;
-  --font-mono: "JetBrains Mono", monospace;
+  /* --- 1. Fonts --- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-text-default: var(
-    --color-neutral-50
-  ); /* Brightest white for main headings */
-  --color-text-body: var(
-    --color-neutral-200
-  ); /* Slightly muted for readable body copy */
-  --color-text-muted: var(
-    --color-neutral-400
-  ); /* Darker grey for sub-labels and metadata */
-  --color-text-inverse: var(
-    --color-neutral-950
-  ); /* Near-black for text on bright accents */
+  /* --- 2. Semantic Backgrounds --- */
+  --color-bg-default: var(--color-neutral-800);
+  --color-bg-surface: var(--color-neutral-700);
+  --color-bg-muted: var(--color-neutral-900);
 
-  /* Primary */
-  --color-primary: #7aa2f7;
+  /* --- 3. Semantic Text --- */
+  --color-text-default: var(--color-neutral-50);
+  --color-text-body: var(--color-neutral-300);
+  --color-text-muted: var(--color-neutral-500);
+  --color-text-inverse: var(--color-neutral-900);
+
+  /* --- 4. Semantic Status --- */
+  --color-status-success: var(--color-green-500);
+  --color-status-warn: var(--color-yellow-500);
+  --color-status-error: var(--color-red-500);
+  --color-status-info: var(--color-tertiary-500);
+
+  /* --- 5. Neutrals (Tokyo Night) --- */
+  --color-neutral-50: #ffffff;
+  --color-neutral-100: #e0def4;
+  --color-neutral-200: #c0caf5;
+  --color-neutral-300: #a9b1d6;
+  --color-neutral-400: #9aa5ce;
+  --color-neutral-500: #565f89;
+  --color-neutral-600: #414868;
+  --color-neutral-700: #24283b;
+  --color-neutral-800: #1a1b26;
+  --color-neutral-900: #15161e;
+  --color-neutral-950: #101014;
+
+  /* --- 6. Accents --- */
+  /* Primary (Blue) */
+  --color-primary: var(--color-primary-500);
   --color-primary-50: #eef4fd;
   --color-primary-100: #dee9fa;
   --color-primary-200: #bcd1f5;
@@ -38,7 +56,7 @@
   --color-primary-900: #111d30;
 
   /* Green */
-  --color-green: #9ece6a;
+  --color-green: var(--color-green-500);
   --color-green-50: #f1faf0;
   --color-green-100: #e4f4e1;
   --color-green-200: #cae9bf;
@@ -51,7 +69,7 @@
   --color-green-900: #326016;
 
   /* Red */
-  --color-red: #f7768e;
+  --color-red: var(--color-red-500);
   --color-red-50: #fef3f4;
   --color-red-100: #fee8ea;
   --color-red-200: #fccdd2;
@@ -64,7 +82,7 @@
   --color-red-900: #8b333d;
 
   /* Yellow */
-  --color-yellow: #e0af68;
+  --color-yellow: var(--color-yellow-500);
   --color-yellow-50: #fef9f3;
   --color-yellow-100: #fef3e8;
   --color-yellow-200: #fce7d2;
@@ -76,8 +94,8 @@
   --color-yellow-800: #96793f;
   --color-yellow-900: #7e6731;
 
-  /* Secondary (Replacing Magenta) */
-  --color-secondary: #bb9af7;
+  /* Secondary (Magenta) */
+  --color-secondary: var(--color-secondary-500);
   --color-secondary-50: #f3eefd;
   --color-secondary-100: #e7def9;
   --color-secondary-200: #cfbdf3;
@@ -89,8 +107,8 @@
   --color-secondary-800: #392658;
   --color-secondary-900: #1f152b;
 
-  /* Tertiary (Replacing Cyan) */
-  --color-tertiary: #7dcfff;
+  /* Tertiary (Cyan) */
+  --color-tertiary: var(--color-tertiary-500);
   --color-tertiary-50: #e8f6fe;
   --color-tertiary-100: #d4ecfb;
   --color-tertiary-200: #aad6f7;
@@ -102,26 +120,9 @@
   --color-tertiary-800: #15416c;
   --color-tertiary-900: #0c263f;
 
-  /* Neutral (Replacing Base) */
-  --color-neutral-50: #f9fafb;
-  --color-neutral-100: #f1f3f5;
-  --color-neutral-200: #c9d1d9;
-  --color-neutral-300: #8b949e;
-  --color-neutral-400: #5a626a;
-  --color-neutral-500: #414750;
-  --color-neutral-600: #333941;
-  --color-neutral-700: #252930;
-  --color-neutral-800: #1a1b26; /* The specific hex from the image */
-  --color-neutral-900: #13141a;
-  --color-neutral-950: #000000;
-  /* Status Aliases */
-  --color-status-success: #9ece6a;
-  --color-status-warn: #e0af68;
-  --color-status-info: #7dcfff;
-
+  /* --- 7. Animations --- */
   --animate-blink: blink 1s step-end infinite;
 
-  /* Define the keyframes */
   @keyframes blink {
     0%,
     100% {
@@ -130,5 +131,61 @@
     50% {
       opacity: 0;
     }
+  }
+}
+
+@layer base {
+  /* --- 1. Global Body Defaults --- */
+  body {
+    background-color: var(--color-bg-default);
+    color: var(--color-text-body);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* --- 2. Global Heading Defaults --- */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-default);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.5em;
+  }
+
+  /* --- 3. Responsive Heading Scale --- */
+  h1 { @apply text-4xl sm:text-5xl; }
+  h2 { @apply text-3xl sm:text-4xl; }
+  h3 { @apply text-2xl sm:text-3xl; }
+  h4 { @apply text-xl sm:text-2xl; }
+  h5 { @apply text-lg sm:text-xl; }
+  h6 { @apply text-base sm:text-lg; }
+
+  /* --- 4. Paragraph & Inline Elements --- */
+  p {
+    margin-bottom: 1rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  strong, b {
+    color: var(--color-text-default);
+    font-weight: 600;
+  }
+
+  /* --- 5. Code Blocks --- */
+  code, pre {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+
+  :not(pre) > code {
+    background-color: var(--color-bg-muted);
+    color: var(--color-primary-300);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
   }
 }

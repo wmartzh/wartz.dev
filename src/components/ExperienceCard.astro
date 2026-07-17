@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TerminalCard from "./TerminalCard.astro";
+import { render } from "astro:content";
+import { BriefcaseBusiness } from "@lucide/astro";
+import { getYearsAndDaysElapsed } from "../utils/time";
+interface Props {
+  experience: CollectionEntry<"experience">;
+}
+
+const { experience } = Astro.props;
+
+const { Content } = await render(experience);
+---
+
+<TerminalCard>
+  <div slot="header" class="flex flex-col gap-4 justify-start align-center">
+    <div class="flex flex-row align-end justify-start gap-2">
+      <BriefcaseBusiness />
+      <h4 class="font-bold text-primary">{experience.data.title}</h4>    {
+            getYearsAndDaysElapsed(
+              experience.data.startDate,
+              experience.data.endDate,
+            )
+          }
+
+    </div>
+    <div class="flex flex-row">
+      <div class="w-80 text-tertiary">
+        {
+          experience.data.companySite ? (
+            <a href={experience.data.companySite}>{experience.data.company}</a>
+          ) : (
+            <p>{experience.data.company}</p>
+          )
+        }
+      </div>
+      <div class="content-end self-end">
+        <p>
+          <b>From: </b>
+          {experience.data.startDate}
+          <b>{experience.data.endDate ? " To:" : " Current"}</b>
+          {experience.data.endDate && experience.data.endDate}  
+          
+               </p>
+      </div>
+    </div>
+  </div>
+  <Content />
+</TerminalCard>
